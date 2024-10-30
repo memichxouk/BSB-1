@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css"
+<body>
+    <div class="container">
+        <h1>СОЧ по алгебре и геометрии</h1>
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+        <div id="score">Score: 0</div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "1.+(a + b - c) 2.-(-a + b + c) 3.-(-a - b - c)||A. a + b - c; B.a + b + c; C. a - b - c; D. - a + b - c" ,
+                options: ["1-A, 2-C, 3-B;", "1-D, 2-A, 3-B;", "1-A, 2-B, 3-C" ],
+                answer: "1-A, 2-C, 3-B;"
+            },
+            {
+                question: "Запишите число 0.00134 в стандартном виде",
+                options: ["1,34 * 10^-3", "1,34 * 10^3", "13,4 * 10^-4", "134 * 10^-5"],
+                answer: "1,34 * 10^-31"
+            },
+            {
+                question: "Пользуясь рисунком, найдите точки не принадлежащие прямой a и b ",
+                options: ["A, D, C И E", "O и B", "O", "A и B"],
+                answer: "A, D, C И E"
+            },
+            {
+                question: "Утверждение: 145* - тупой угол, 180* - тупой угол, 89* - острый угол",
+                options: ["Верно, неверно, верно", "Неверно, верно, верно", "верно, неверно, неверно"],
+                answer: "Au"
+            },
+            {
+                question: "2с - 3ab + 4bc; a = 1; b = 3; c= 2; Решение: 2 * 2 - 3 * 1 * 3 + 4 * 3 * 2",
+                options: ["19", "11", "-1", "-9"],
+                answer: "19"
+            },
+            {
+                question: "Путник вышел из деревни и напрвился в город. Пройдя x километр, он сел в автобус и за t часов добрался до города на автобусе. Найдите расстояние S между деревней и городом, если автобус ехал со скростью 55 км.ч",
+                options: ["S = x + 55t", "S = xt + 55", "S = 55t - x",],
+                answer: "S = x + 55t"
+            },
+            {
+                question: "5^17 * 6^41|5^15 * 6^42 = 5^2|6^1",
+                options: ["25|6", "5|6", "6|25", "6|5"],
+                answer: "25|6"
+            },
+            {
+                question: "Во сколько раз число 16^18+n больше числа 2^69+4n?",
+                options: ["8", "4", "2", "16"],
+                answer: "8"
+            },
+            {
+            question: "Приведите одночлен в стандартный вид abc^2 * 2ab^3c * 6abc",
+            options: ["12a^3b^5c^4", "12a^3b^4", "12a^3b^5c^5", "Джамаль еблан"],
+            answer: "12a^3b^5c^4"
+        },
+        {
+            question: "Раскройте скобки и приведите подобные слагаемые: -4a + 5(3a - 2b) - 3(b-3a)",
+            options: ["20a - 13b", "20a", "-20a + 13b", "16a - 13b"],
+            answer: "20a - 13b"
+        },
+        {
+            question: "Раскройте скобки и приведите подобные слагаемые: (6x^3 + 7x^2) + (-9x^3 + x^2) + (-10x^3 - 4x^2)",
+            options: ["-13x^3 + 4x^2", "13x^3 - 10x^2", "13x^3 - 4x^2", "Джамаль еблан"],
+            answer: "-13x^3 + 4x^2"
+        },
+        {
+            question: "Умножьте члены(многочлены): (2a - 5b)(4a^2 + 10ab + 25b^2)",
+            options: ["8a^3 - 125b^3", "8a^3 + 125b^3", "8a^3 + 50ab + 125b^3", "Джамаль еблан"],
+            answer: "8a^3 - 125b^3"
+        },
+        {
+        question: "Найдите неизвестный множитель: -24x^2 - 15x + 32x + 20 = (8x + 5) * (?)",
+        options: ["(4 - 3x)", "(4 + 3x)", "4x - 3", "(4x + 3)"],
+        answer: "(4 - 3x)"
+        },
+        {
+            question: " Если отрезки AB, BC, CD, DE  равны между собой. Если AD = а, какова длина отрезка BE",
+            options: ["3a", "2a", "a", "Нет животного сильнее китайца, Асад сосал нам яйца"],
+            answer: "a"
+            },
+            {
+                question: "На сколько градусов повернется часовая стрелка за 24 минут?",
+                options: ["8", "36", "12", "32"],
+                answer: "12"
+                },
+                {
+                    question: "Найдите неверное среди утверждений ниже",
+                    options: ["Угол смежный с прямым углом, так является прямым", "Луч AB можно так же назвать лучом BA", "Самая большая хорда является диаметром", "Биссектрисы смежный углов взаимно перпендикулярны"],
+                    answer: "Луч AB можно так же назвать лучом BA"
+                    },
+                    {
+                        question: "Сколько цифр содержит произведение 16^19 * 25^39",
+                        options: ["78", "76", "4", "87"],
+                        answer: "Луч AB можно так же назвать лучом BA"
+                        },
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const scoreElement = document.getElementById('score');
+
+        function displayQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = '';
+
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const currentQuestion = questions[currentQuestionIndex];
+            if (selectedOption === currentQuestion.answer) {
+                score++;
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            questionElement.textContent = 'Quiz Completed!';
+            optionsElement.innerHTML = '';
+            scoreElement.textContent = `Your Score: ${score} / ${questions.length}`;
+        }
+
+        displayQuestion();
+    </script>
+</body>
